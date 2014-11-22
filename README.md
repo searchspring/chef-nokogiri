@@ -34,9 +34,9 @@ the chefgem recipe will install the dependencies to build nokogiri and chef_gem 
 Attributes
 ==========
 
-default['nokogiri']['gem_binary']
-default['nokogiri']['options']
-default['nokogiri']['version']
+* default['nokogiri']['gem_binary']
+* default['nokogiri']['options']
+* default['nokogiri']['version']
 
 
 License and Author
