@@ -25,4 +25,5 @@ include_recipe 'libxml2'
 chef_gem "nokogiri" do
   options node['nokogiri']['options']
   version node['nokogiri']['version']
+  compile_time true if Chef::Resource::ChefGem.instance_methods(false).include?(:compile_time)
 end
