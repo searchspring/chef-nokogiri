@@ -21,6 +21,9 @@
 
 include_recipe 'build-essential'
 include_recipe 'libxml2'
+package 'zlib1g-dev' do
+  action :nothing
+end.run_action(:install)
 
 chef_gem "nokogiri" do
   options node['nokogiri']['options']
