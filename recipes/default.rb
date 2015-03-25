@@ -21,6 +21,15 @@
 
 include_recipe 'build-essential'
 include_recipe 'libxml2'
+case node['platform_family']
+when 'debian'
+	include_recipe "apt"
+	package 'zlib1g-dev' do
+  		action :install
+	end
+when 'rhel'
+	include_recipe "yum"
+end
 gem_package "nokogiri" do
   gem_binary node['nokogiri']['gem_binary']
   options node['nokogiri']['options']

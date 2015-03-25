@@ -21,10 +21,15 @@
 
 include_recipe 'build-essential'
 include_recipe 'libxml2'
-package 'zlib1g-dev' do
-  action :nothing
-end.run_action(:install)
-
+case node['platform_family']
+when 'debian'
+	include_recipe "apt"
+	package 'zlib1g-dev' do
+  		action :nothing
+	end.run_action(:install)
+when 'rhel'
+	include_recipe "yum"
+end
 chef_gem "nokogiri" do
   options node['nokogiri']['options']
   version node['nokogiri']['version']
