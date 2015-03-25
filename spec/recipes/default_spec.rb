@@ -36,4 +36,17 @@ describe 'nokogiri::default' do
       end
     end
   end
+  context "On debian based systems" do
+    let(:chef_run) do
+      runner = ChefSpec::SoloRunner.new(
+        :platform => "ubuntu",
+        :version => "12.04"
+      )
+      runner.converge(described_recipe)
+    end
+
+    it "should install zlib1g-dev" do
+      expect(chef_run).to install_package "zlib1g-dev"
+    end
+  end
 end

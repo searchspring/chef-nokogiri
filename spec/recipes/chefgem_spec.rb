@@ -5,13 +5,13 @@ describe 'nokogiri::chefgem' do
   end
   platforms = {
     'centos-6.5' => {
-      :plaform_family => 'rhel',
+      :platform_family => 'rhel',
     },
     'amazon' => {
-      :plaform_family => 'rhel',
+      :platform_family => 'rhel',
     },
     'ubuntu-12.04' => {
-      :plaform_family => 'debian',
+      :platform_family => 'debian',
     }
   }
   platforms.each do |platform,data|
@@ -21,7 +21,7 @@ describe 'nokogiri::chefgem' do
         runner = ChefSpec::SoloRunner.new
         runner.node.set[:platform] = os
         runner.node.set[:version] = version
-        runner.node.set[:plaform_family] = data[:plaform_family]
+        runner.node.set[:platform_family] = data[:platform_family]
         runner.converge(described_recipe) 
       end
 
@@ -34,6 +34,19 @@ describe 'nokogiri::chefgem' do
       it "should chef_gem install nokogiri" do
         expect(chef_run).to install_chef_gem 'nokogiri'
       end
+    end
+  end
+  context "On debian based systems" do
+    let(:chef_run) do
+      runner = ChefSpec::SoloRunner.new(
+        :platform => "ubuntu",
+        :version => "12.04"
+      )
+      runner.converge(described_recipe)
+    end
+
+    it "should install zlib1g-dev" do
+      expect(chef_run).to install_package "zlib1g-dev"
     end
   end
 end
